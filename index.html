@@ -3,191 +3,195 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PlanninPoly</title>
+  <title>PlanninPoly IDE</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="page-shell">
     <header class="hero">
       <div class="hero-copy">
-        <p class="eyebrow">Generateur de planning</p>
-        <h1>Construis tes plannings IDE, AS et ASH depuis une seule interface.</h1>
+        <p class="eyebrow">Module IDE</p>
+        <h1>Genere un planning IDE 12h, jour ou nuit, puis exporte-le en Excel.</h1>
         <p class="hero-text">
-          Une premiere base pour visualiser les categories, preparer un planning et afficher
-          un apercu clair avant la generation.
+          Renseigne l'equipe, choisis le mois et le besoin quotidien du service.
+          L'interface produit un planning colore et un export modifiable dans Excel.
         </p>
-        <div class="hero-actions">
-          <button class="primary-button" type="button">Nouveau planning</button>
-          <button class="secondary-button" type="button">Voir l'apercu</button>
+
+        <div class="hero-metrics">
+          <div class="metric-card">
+            <span>Format</span>
+            <strong>12h</strong>
+          </div>
+          <div class="metric-card">
+            <span>Equipe</span>
+            <strong>IDE</strong>
+          </div>
+          <div class="metric-card">
+            <span>Export</span>
+            <strong>Excel</strong>
+          </div>
         </div>
       </div>
 
       <aside class="hero-panel">
-        <p class="panel-label">Vue rapide</p>
-        <div class="mini-calendar">
-          <div class="calendar-head">
-            <span>Mai 2026</span>
-            <span>Equipe matin</span>
+        <p class="panel-label">Legende</p>
+        <div class="legend-list">
+          <div class="legend-item">
+            <span class="legend-swatch shift-day"></span>
+            <div>
+              <strong>J</strong>
+              <p>Poste effectue sur la tranche jour</p>
+            </div>
           </div>
-          <div class="calendar-grid">
-            <span>L</span>
-            <span>M</span>
-            <span>M</span>
-            <span>J</span>
-            <span>V</span>
-            <span class="active">S</span>
-            <span>D</span>
+          <div class="legend-item">
+            <span class="legend-swatch shift-night"></span>
+            <div>
+              <strong>N</strong>
+              <p>Poste effectue sur la tranche nuit</p>
+            </div>
           </div>
-          <div class="calendar-pill-list">
-            <div class="calendar-pill ide">IDE</div>
-            <div class="calendar-pill as">AS</div>
-            <div class="calendar-pill ash">ASH</div>
+          <div class="legend-item">
+            <span class="legend-swatch shift-off"></span>
+            <div>
+              <strong>R</strong>
+              <p>Repos ou jour non affecte</p>
+            </div>
+          </div>
+          <div class="legend-item">
+            <span class="legend-swatch shift-weekend"></span>
+            <div>
+              <strong>WE</strong>
+              <p>Jour de week-end dans le planning</p>
+            </div>
           </div>
         </div>
       </aside>
     </header>
 
-    <main class="content-grid">
-      <section class="card">
+    <main class="workspace-grid">
+      <section class="card form-card">
         <div class="section-heading">
-          <p class="section-kicker">Categories</p>
-          <h2>Choisis le type de planning</h2>
+          <p class="section-kicker">Parametres</p>
+          <h2>Construis le planning IDE</h2>
         </div>
 
-        <div class="category-grid">
-          <button class="category-card selected" type="button" data-category="IDE">
-            <span class="badge">01</span>
-            <strong>IDE</strong>
-            <p>Planning infirmier avec suivi des amplitudes et des affectations.</p>
-          </button>
-
-          <button class="category-card" type="button" data-category="AS">
-            <span class="badge">02</span>
-            <strong>AS</strong>
-            <p>Organisation aide-soignant avec repartition par service et roulement.</p>
-          </button>
-
-          <button class="category-card" type="button" data-category="ASH">
-            <span class="badge">03</span>
-            <strong>ASH</strong>
-            <p>Vue entretien et logistique avec equipes, zones et creneaux.</p>
-          </button>
-        </div>
-      </section>
-
-      <section class="card planner-card">
-        <div class="section-heading">
-          <p class="section-kicker">Configuration</p>
-          <h2>Parametre le planning</h2>
-        </div>
-
-        <form class="planner-form">
+        <form id="planner-form" class="planner-form">
           <label>
             <span>Nom du planning</span>
-            <input type="text" value="Planning IDE - Semaine 1" />
+            <input id="planning-name" type="text" value="Planning IDE Service Medecine">
           </label>
 
           <div class="split-fields">
             <label>
-              <span>Periode</span>
-              <input type="month" value="2026-05" />
+              <span>Mois</span>
+              <input id="planning-month" type="month" value="2026-05">
             </label>
 
             <label>
-              <span>Mode</span>
-              <select>
-                <option>Hebdomadaire</option>
-                <option>Mensuel</option>
-                <option>Par equipe</option>
+              <span>Type de planning</span>
+              <select id="planning-shift">
+                <option value="J">Jour</option>
+                <option value="N">Nuit</option>
               </select>
             </label>
           </div>
 
           <div class="split-fields">
             <label>
-              <span>Effectif cible</span>
-              <input type="number" value="12" min="1" />
+              <span>IDE necessaires par jour</span>
+              <input id="daily-needed" type="number" min="1" value="3">
             </label>
 
             <label>
-              <span>Service</span>
-              <select>
-                <option>Medecine</option>
-                <option>Chirurgie</option>
-                <option>SSR</option>
-              </select>
+              <span>Duree du poste</span>
+              <input type="text" value="12 heures" disabled>
             </label>
           </div>
 
           <label>
-            <span>Notes</span>
-            <textarea rows="4">Contraintes de week-end, rotation matin/soir, repos obligatoires.</textarea>
+            <span>Noms des IDE</span>
+            <textarea id="staff-names" rows="10" spellcheck="false">Alice Martin
+Sarah Petit
+Nina Leroy
+Julie Mercier
+Lea Bernard
+Camille Robert
+Emma Richard
+Chloe Dubois</textarea>
           </label>
 
-          <div class="toggle-row">
-            <div class="toggle-card">
-              <span>Week-ends</span>
-              <strong>Equilibres</strong>
-            </div>
-            <div class="toggle-card">
-              <span>Contraintes</span>
-              <strong>Actives</strong>
-            </div>
-            <div class="toggle-card">
-              <span>Export</span>
-              <strong>PDF / Excel</strong>
-            </div>
-          </div>
+          <p class="input-help">Un nom par ligne. Le generateur repartit automatiquement les postes sur le mois selectionne.</p>
 
-          <button class="primary-button wide" type="button">Generer l'interface du planning</button>
+          <div class="action-row">
+            <button class="primary-button" type="submit">Generer le planning</button>
+            <button id="export-button" class="secondary-button" type="button">Exporter en Excel</button>
+          </div>
         </form>
       </section>
 
-      <section class="card preview-card">
+      <section class="card summary-card">
         <div class="section-heading">
-          <p class="section-kicker">Apercu</p>
-          <h2 id="preview-title">Planning IDE</h2>
+          <p class="section-kicker">Synthese</p>
+          <h2>Controle rapide</h2>
         </div>
 
-        <div class="preview-layout">
-          <div class="preview-column">
-            <p class="preview-label">Equipe selectionnee</p>
-            <div class="preview-highlight" id="preview-category">IDE</div>
-            <ul class="preview-list">
-              <li>Rotation matin / soir</li>
-              <li>12 personnes sur la periode</li>
-              <li>Conflits visibles avant generation</li>
-            </ul>
+        <div class="summary-grid">
+          <div class="summary-box">
+            <span>IDE saisis</span>
+            <strong id="summary-staff">0</strong>
           </div>
+          <div class="summary-box">
+            <span>Jours du mois</span>
+            <strong id="summary-days">0</strong>
+          </div>
+          <div class="summary-box">
+            <span>Besoin total</span>
+            <strong id="summary-required">0</strong>
+          </div>
+          <div class="summary-box">
+            <span>Type</span>
+            <strong id="summary-shift">Jour</strong>
+          </div>
+        </div>
 
-          <div class="preview-board">
-            <div class="board-row">
-              <span>Lundi</span>
-              <div><em>06:30 - 14:00</em><strong>Equipe A</strong></div>
-            </div>
-            <div class="board-row">
-              <span>Mardi</span>
-              <div><em>13:30 - 21:00</em><strong>Equipe B</strong></div>
-            </div>
-            <div class="board-row">
-              <span>Mercredi</span>
-              <div><em>09:00 - 17:00</em><strong>Renfort</strong></div>
-            </div>
-            <div class="board-row">
-              <span>Jeudi</span>
-              <div><em>06:30 - 14:00</em><strong>Equipe A</strong></div>
-            </div>
-            <div class="board-row">
-              <span>Vendredi</span>
-              <div><em>13:30 - 21:00</em><strong>Equipe C</strong></div>
-            </div>
-          </div>
+        <div id="status-banner" class="status-banner status-info">
+          Renseigne les champs puis genere le planning pour afficher le tableau.
+        </div>
+
+        <div class="rules-card">
+          <p class="preview-label">Logique actuelle</p>
+          <ul class="rules-list">
+            <li>Repartition automatique par roulement pour equilibrer la charge.</li>
+            <li>Blocage a 2 postes consecutifs maximum pour eviter les longues series.</li>
+            <li>Alerte visible si le nombre d'IDE ne permet pas de couvrir le besoin quotidien.</li>
+          </ul>
         </div>
       </section>
     </main>
+
+    <section class="card planner-output">
+      <div class="output-head">
+        <div>
+          <p class="section-kicker">Resultat</p>
+          <h2 id="output-title">Planning IDE a generer</h2>
+        </div>
+        <div class="export-note">Export .xls compatible Excel, cellules modifiables et colorees.</div>
+      </div>
+
+      <div class="table-shell">
+        <table id="planning-table" class="planning-table">
+          <thead id="planning-head"></thead>
+          <tbody id="planning-body">
+            <tr>
+              <td class="empty-state">Le planning apparaitra ici apres generation.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </div>
 
   <script src="script.js"></script>
