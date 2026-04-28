@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlanninPoly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Generateur de planning</p>
+        <h1>Construis tes plannings IDE, AS et ASH depuis une seule interface.</h1>
+        <p class="hero-text">
+          Une premiere base pour visualiser les categories, preparer un planning et afficher
+          un apercu clair avant la generation.
+        </p>
+        <div class="hero-actions">
+          <button class="primary-button" type="button">Nouveau planning</button>
+          <button class="secondary-button" type="button">Voir l'apercu</button>
+        </div>
+      </div>
+
+      <aside class="hero-panel">
+        <p class="panel-label">Vue rapide</p>
+        <div class="mini-calendar">
+          <div class="calendar-head">
+            <span>Mai 2026</span>
+            <span>Equipe matin</span>
+          </div>
+          <div class="calendar-grid">
+            <span>L</span>
+            <span>M</span>
+            <span>M</span>
+            <span>J</span>
+            <span>V</span>
+            <span class="active">S</span>
+            <span>D</span>
+          </div>
+          <div class="calendar-pill-list">
+            <div class="calendar-pill ide">IDE</div>
+            <div class="calendar-pill as">AS</div>
+            <div class="calendar-pill ash">ASH</div>
+          </div>
+        </div>
+      </aside>
+    </header>
+
+    <main class="content-grid">
+      <section class="card">
+        <div class="section-heading">
+          <p class="section-kicker">Categories</p>
+          <h2>Choisis le type de planning</h2>
+        </div>
+
+        <div class="category-grid">
+          <button class="category-card selected" type="button" data-category="IDE">
+            <span class="badge">01</span>
+            <strong>IDE</strong>
+            <p>Planning infirmier avec suivi des amplitudes et des affectations.</p>
+          </button>
+
+          <button class="category-card" type="button" data-category="AS">
+            <span class="badge">02</span>
+            <strong>AS</strong>
+            <p>Organisation aide-soignant avec repartition par service et roulement.</p>
+          </button>
+
+          <button class="category-card" type="button" data-category="ASH">
+            <span class="badge">03</span>
+            <strong>ASH</strong>
+            <p>Vue entretien et logistique avec equipes, zones et creneaux.</p>
+          </button>
+        </div>
+      </section>
+
+      <section class="card planner-card">
+        <div class="section-heading">
+          <p class="section-kicker">Configuration</p>
+          <h2>Parametre le planning</h2>
+        </div>
+
+        <form class="planner-form">
+          <label>
+            <span>Nom du planning</span>
+            <input type="text" value="Planning IDE - Semaine 1" />
+          </label>
+
+          <div class="split-fields">
+            <label>
+              <span>Periode</span>
+              <input type="month" value="2026-05" />
+            </label>
+
+            <label>
+              <span>Mode</span>
+              <select>
+                <option>Hebdomadaire</option>
+                <option>Mensuel</option>
+                <option>Par equipe</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="split-fields">
+            <label>
+              <span>Effectif cible</span>
+              <input type="number" value="12" min="1" />
+            </label>
+
+            <label>
+              <span>Service</span>
+              <select>
+                <option>Medecine</option>
+                <option>Chirurgie</option>
+                <option>SSR</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            <span>Notes</span>
+            <textarea rows="4">Contraintes de week-end, rotation matin/soir, repos obligatoires.</textarea>
+          </label>
+
+          <div class="toggle-row">
+            <div class="toggle-card">
+              <span>Week-ends</span>
+              <strong>Equilibres</strong>
+            </div>
+            <div class="toggle-card">
+              <span>Contraintes</span>
+              <strong>Actives</strong>
+            </div>
+            <div class="toggle-card">
+              <span>Export</span>
+              <strong>PDF / Excel</strong>
+            </div>
+          </div>
+
+          <button class="primary-button wide" type="button">Generer l'interface du planning</button>
+        </form>
+      </section>
+
+      <section class="card preview-card">
+        <div class="section-heading">
+          <p class="section-kicker">Apercu</p>
+          <h2 id="preview-title">Planning IDE</h2>
+        </div>
+
+        <div class="preview-layout">
+          <div class="preview-column">
+            <p class="preview-label">Equipe selectionnee</p>
+            <div class="preview-highlight" id="preview-category">IDE</div>
+            <ul class="preview-list">
+              <li>Rotation matin / soir</li>
+              <li>12 personnes sur la periode</li>
+              <li>Conflits visibles avant generation</li>
+            </ul>
+          </div>
+
+          <div class="preview-board">
+            <div class="board-row">
+              <span>Lundi</span>
+              <div><em>06:30 - 14:00</em><strong>Equipe A</strong></div>
+            </div>
+            <div class="board-row">
+              <span>Mardi</span>
+              <div><em>13:30 - 21:00</em><strong>Equipe B</strong></div>
+            </div>
+            <div class="board-row">
+              <span>Mercredi</span>
+              <div><em>09:00 - 17:00</em><strong>Renfort</strong></div>
+            </div>
+            <div class="board-row">
+              <span>Jeudi</span>
+              <div><em>06:30 - 14:00</em><strong>Equipe A</strong></div>
+            </div>
+            <div class="board-row">
+              <span>Vendredi</span>
+              <div><em>13:30 - 21:00</em><strong>Equipe C</strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
